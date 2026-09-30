@@ -1,0 +1,21 @@
+<a routerLink="/users" class="back">← Back to users</a>
+
+@if (user(); as user) {
+  <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+
+  <dl class="details">
+    <dt>Email</dt>
+    <dd>{{ user.email }}</dd>
+
+    <dt>Role</dt>
+    <dd>{{ user.role }}</dd>
+
+    <dt>Status</dt>
+    <dd>{{ user.active ? 'Active' : 'Inactive' }}</dd>
+
+    <dt>Created</dt>
+    <dd>{{ user.createdAt | date: 'longDate' }}</dd>
+  </dl>
+} @else {
+  <p>Loading…</p>
+}
