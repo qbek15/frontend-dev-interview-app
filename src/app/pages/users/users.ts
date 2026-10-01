@@ -1,14 +1,15 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 
+import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-users',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [AsyncPipe, ReactiveFormsModule, RouterLink],
   templateUrl: './users.html',
   styleUrl: './users.scss',
 })
@@ -17,12 +18,10 @@ export class Users {
 
   protected readonly search = new FormControl('', { nonNullable: true });
 
-  protected readonly users = toSignal(
-    this.search.valueChanges.pipe(
-      startWith(this.search.value),
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((query) => this.userService.getUsers(query)),
-    ),
+  protected readonly users$: Observable<User[]> = this.search.valueChanges.pipe(
+    startWith(this.search.value),
+    debounceTime(300),
+    distinctUntilChanged(),
+    switchMap((query) => this.userService.getUsers(query)),
   );
 }

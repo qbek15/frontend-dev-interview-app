@@ -1,24 +1,23 @@
-import { Component, inject, input } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Observable, map, switchMap } from 'rxjs';
 
+import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-details',
-  imports: [DatePipe, RouterLink],
+  imports: [AsyncPipe, DatePipe, RouterLink],
   templateUrl: './user-details.html',
   styleUrl: './user-details.scss',
 })
 export class UserDetails {
+  private readonly route = inject(ActivatedRoute);
   private readonly userService = inject(UserService);
 
-  /** Bound from the `:id` route param (withComponentInputBinding). */
-  readonly id = input.required<string>();
-
-  protected readonly user = toSignal(
-    toObservable(this.id).pipe(switchMap((id) => this.userService.getUser(Number(id)))),
+  protected readonly user$: Observable<User> = this.route.paramMap.pipe(
+    map((params) => Number(params.get('id'))),
+    switchMap((id) => this.userService.getUser(id)),
   );
 }

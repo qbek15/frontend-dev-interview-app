@@ -2,8 +2,9 @@
 
 <input class="search" type="search" placeholder="Search by name or email…" [formControl]="search" />
 
-@if (users(); as users) {
+@if (users$ | async; as users) {
   <table>
+    
     <thead>
       <tr>
         <th>Name</th>
@@ -12,6 +13,7 @@
         <th>Status</th>
       </tr>
     </thead>
+    
     <tbody>
       @for (user of users; track user.id) {
         <tr>
@@ -32,6 +34,7 @@
         </tr>
       }
     </tbody>
+    
   </table>
 } @else {
   <p>Loading…</p>
