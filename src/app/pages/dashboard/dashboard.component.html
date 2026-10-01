@@ -1,0 +1,7 @@
+<h1>Dashboard</h1>
+
+@if (users$ | async; as users) {
+  <app-user-stats [users]="users" />
+} @else {
+  <p>Loading…</p>
+}

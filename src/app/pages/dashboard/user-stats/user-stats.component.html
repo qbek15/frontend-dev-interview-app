@@ -1,0 +1,57 @@
+<section class="user-stats">
+  <div class="header">
+    <h2>User statistics</h2>
+    <span class="last-updated"></span>
+  </div>
+
+  @if (loaded) {
+    <div class="groups">
+      <div class="card">
+        <h3>By role</h3>
+        <ul>
+          @for (role of roles; track $index) {
+            <li>
+              <span>{{ role }}</span>
+              <strong>{{ getCountByRole(role) }}</strong>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>By status</h3>
+        <ul>
+          <li>
+            <span class="status-pill active">active</span>
+            <strong>{{ getActiveCount() }}</strong>
+          </li>
+          <li>
+            <span class="status-pill inactive">inactive</span>
+            <strong>{{ getInactiveCount() }}</strong>
+          </li>
+          <li>
+            <span class="status-pill pending">pending</span>
+            <strong>{{ getPendingCount() }}</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Recently created</h3>
+      <table>
+        <tbody>
+          @for (user of getRecentUsers(); track $index) {
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.createdAt | date: 'mediumDate' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p>Loading…</p>
+  }
+</section>

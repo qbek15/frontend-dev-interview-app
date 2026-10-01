@@ -1,7 +1,10 @@
 <a routerLink="/users" class="back">← Back to users</a>
 
 @if (user$ | async; as user) {
-  <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+  <div class="header">
+    <h1>{{ user.name }}</h1>
+    <a routerLink="edit" class="button">Edit</a>
+  </div>
 
   <dl class="details">
     <dt>Email</dt>
@@ -11,7 +14,9 @@
     <dd>{{ user.role }}</dd>
 
     <dt>Status</dt>
-    <dd>{{ user.active ? 'Active' : 'Inactive' }}</dd>
+    <dd>
+      <span class="status-pill {{ user.status }}">{{ user.status }}</span>
+    </dd>
 
     <dt>Created</dt>
     <dd>{{ user.createdAt | date: 'longDate' }}</dd>

@@ -5,17 +5,25 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     title: 'Dashboard',
-    loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
   },
   {
     path: 'users',
     title: 'Users',
-    loadComponent: () => import('./pages/users/users').then((m) => m.Users),
+    loadComponent: () => import('./pages/users/users.component').then((m) => m.UsersComponent),
   },
   {
     path: 'users/:id',
     title: 'User details',
-    loadComponent: () => import('./pages/user-details/user-details').then((m) => m.UserDetails),
+    loadComponent: () =>
+      import('./pages/user-details/user-details.component').then((m) => m.UserDetailsComponent),
+  },
+  {
+    path: 'users/:id/edit',
+    title: 'Edit user',
+    loadComponent: () =>
+      import('./pages/user-edit/user-edit.component').then((m) => m.UserEditComponent),
   },
   { path: '**', redirectTo: 'dashboard' },
 ];
