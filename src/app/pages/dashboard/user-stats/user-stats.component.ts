@@ -3,6 +3,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { interval } from 'rxjs';
 
 import { UserApiService } from '../../../services/user-api.service';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-user-stats',
@@ -52,7 +53,7 @@ export class UserStatsComponent implements OnInit {
   }
 
   getActiveCount() {
-    return this.users.filter((user: any) => user.status === 'active').length;
+    return this.users.filter((user: User) => user.status === 'active').length;
   }
 
   getInactiveCount() {

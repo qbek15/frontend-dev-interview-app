@@ -42,10 +42,11 @@ export class UserApiService {
   private users: User[] = INITIAL_USERS.map((user) => ({ ...user }));
 
   searchUsers(term: string): Observable<User[]> {
+    console.log("REQUEST GOES TO BACKEND")
     const query = term.trim().toLowerCase();
 
     return this.respond(this.searchResponseTime(query.length), () => {
-      if (query.includes('err')) {
+      if (query.includes('joanna')) {
         throw new HttpErrorResponse({
           status: 500,
           statusText: 'Internal Server Error',
