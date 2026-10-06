@@ -41,11 +41,11 @@ const INITIAL_USERS: User[] = [
 export class UserApiService {
   private users: User[] = INITIAL_USERS.map((user) => ({ ...user }));
 
-  searchUsers(term: string): Observable<User[]> {
-    console.log("REQUEST GOES TO BACKEND")
+  searchUsers(term: string = ''): Observable<User[]> {
     const query = term.trim().toLowerCase();
 
     return this.respond(this.searchResponseTime(query.length), () => {
+      console.log("SEARCH BACKEND RESPONSE: ", query)
       if (query.includes('joanna')) {
         throw new HttpErrorResponse({
           status: 500,

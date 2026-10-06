@@ -28,8 +28,8 @@ export class UserStatsComponent implements OnInit {
       this.updateLastRefresh();
     });
 
-    interval(30000).subscribe(() => {
-      this.api.searchUsers('').subscribe((users: any) => {
+    interval(1000).subscribe(() => {
+      this.api.searchUsers().subscribe((users: any) => {
         this.users = users;
         this.calculateStats();
         this.updateLastRefresh();
