@@ -28,5 +28,5 @@ Zaimplementuj edycję usera: name, email, role, status, z walidacją i obsługą
 Widok edycji jest dostępny ze szczegółów usera (przycisk „Edit”).
 
 Bonus:
-- email musi być unikalny,
+- email powinien być unikalny,
 - ostrzeżenie przy opuszczaniu strony z niezapisanymi zmianami.
